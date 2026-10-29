@@ -13,6 +13,7 @@ assets/css/site.css   样式（变量 → 版式 → 版块 → 响应 → 降�
 assets/css/fonts.css  自托管字体声明（103 个 woff2 子集 + unicode-range 分段）
 assets/js/site.js     交互（无框架，9 个模块，含 reduced-motion 降级）
 assets/pay-wechat.png 收款码（全站唯一位图）
+assets/og.png         分享预览图 1200×630（由 .ref/og.html 生成）
 assets/favicon.svg    站点图标
 CNAME                 自定义域名 biohacker.fun
 ```
