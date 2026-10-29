@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="zh-CN" data-layer="identity" data-grid="off">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NetAdmin Toolbox · 单文件 Windows 网管工具箱 — biohacker.fun</title>
+<meta name="description" content="一个约 3.5 MB 的 exe，装下 69 个模块、15 个分组：净化中心、远程终端、组网助手、网络诊断、磁盘清理。纯 Win32，零第三方依赖，三语界面，MIT。biohacker.fun 项目 001。">
+<meta name="theme-color" content="#FBF7EC">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NetAdmin Toolbox · 单文件 Windows 网管工具箱">
+<meta property="og:description" content="3.5 MB / 69 模块 / 15 分组 / 零依赖。拷进 U 盘，双击就跑。">
+<meta property="og:site_name" content="biohacker.fun">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/baloo2-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.classList.add("js");</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "NetAdmin Toolbox",
+  "alternateName": "网管工具箱",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows 10, Windows 11",
+  "softwareVersion": "2.16",
+  "fileSize": "3.5MB",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {"@type": "Organization", "name": "biohacker.fun"},
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">跳到正文</a>
+
+<!-- 蝶形 · 主标志（矢量复刻，不改构造） -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="bf" viewBox="0 0 192 103.2">
+    <g transform="scale(.88) translate(-174.3 -172.1)">
+      <path style="fill:var(--b-wing)" d="M278.5,219.1C302.7,185.2 332.6,172.3 368.1,180.4C389.1,198.1 392.4,220.8 377.8,248.2C353.6,261.1 328.6,258.7 302.7,240.9Z"/>
+      <path style="fill:var(--b-wing)" d="M288.2,219.1C263.9,185.2 234.1,172.3 198.5,180.4C177.5,198.1 174.3,220.8 188.8,248.2C213.1,261.1 238.1,258.7 263.9,240.9Z"/>
+      <path style="fill:var(--b-gold)" d="M285.7,240.9C308.4,249 326.9,261.9 341.5,279.7C323.7,289.4 305.9,286.2 288.2,270Z"/>
+      <path style="fill:var(--b-gold)" d="M280.9,240.9C258.3,249 239.7,261.9 225.2,279.7C242.9,289.4 260.7,286.2 278.5,270Z"/>
+      <g style="stroke:var(--b-gold);fill:none" stroke-width="4.24" stroke-linecap="round">
+        <path d="M293,228.8L312.4,211.9 351.2,216.7"/>
+        <path d="M273.6,228.8L254.2,211.9 215.5,216.7"/>
+        <path d="M300.3,243.4L329.4,233.7 363.3,238.5"/>
+        <path d="M266.4,243.4L237.3,233.7 203.4,238.5"/>
+      </g>
+      <g style="stroke:var(--b-gold);fill:none" stroke-width="3.63">
+        <circle cx="351.2" cy="216.7" r="5.45"/>
+        <circle cx="215.5" cy="216.7" r="5.45"/>
+        <circle cx="329.4" cy="233.7" r="5.45"/>
+        <circle cx="237.3" cy="233.7" r="5.45"/>
+      </g>
+      <g style="fill:var(--b-gold)">
+        <circle cx="300.3" cy="243.4" r="3.4"/>
+        <circle cx="266.4" cy="243.4" r="3.4"/>
+      </g>
+      <path style="fill:var(--b-ink)" d="M283.3,197.3C288.2,223.2 288.2,253.9 283.3,289.4C278.5,253.9 278.5,223.2 283.3,197.3Z"/>
+      <g style="stroke:var(--b-ink);fill:none" stroke-width="4.24" stroke-linecap="round">
+        <path d="M278.5,199.8C272,190.1 265.6,182.8 259.1,177.9"/>
+        <path d="M288.2,199.8C294.6,190.1 301.1,182.8 307.6,177.9"/>
+      </g>
+      <g style="fill:var(--b-ink)">
+        <circle cx="259.1" cy="177.9" r="4.24"/>
+        <circle cx="307.6" cy="177.9" r="4.24"/>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- 蝶形符号 · 弃用走线，四瓣加身体，最小 16px 可辨 -->
+  <symbol id="bf-mark" viewBox="0 0 24 24">
+    <g transform="translate(12 12) scale(.0825) translate(-283.35 -230.85)">
+      <path style="fill:var(--b-wing)" d="M278.5,219.1C302.7,185.2 332.6,172.3 368.1,180.4C389.1,198.1 392.4,220.8 377.8,248.2C353.6,261.1 328.6,258.7 302.7,240.9Z"/>
+      <path style="fill:var(--b-wing)" d="M288.2,219.1C263.9,185.2 234.1,172.3 198.5,180.4C177.5,198.1 174.3,220.8 188.8,248.2C213.1,261.1 238.1,258.7 263.9,240.9Z"/>
+      <path style="fill:var(--b-gold)" d="M285.7,240.9C308.4,249 326.9,261.9 341.5,279.7C323.7,289.4 305.9,286.2 288.2,270Z"/>
+      <path style="fill:var(--b-gold)" d="M280.9,240.9C258.3,249 239.7,261.9 225.2,279.7C242.9,289.4 260.7,286.2 278.5,270Z"/>
+      <rect style="fill:var(--b-ink)" x="276.4" y="196" width="13.9" height="93.4" rx="6.9"/>
+    </g>
+  </symbol>
+</svg>
+
+<div class="gridlayer" aria-hidden="true">
+  <div class="gridlayer__in">
+    <div class="gridlayer__cols"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="gridlayer__meta mono">12 栏 / 栏距 24px / 版心 <span class="js-wrap-w">—</span>px · 圆角 12 与 999</p>
+  </div>
+</div>
+
+<header class="topbar" id="topbar">
+  <div class="wrap topbar__in">
+    <a class="brand" href="#top" aria-label="biohacker.fun · 项目 001 首页">
+      <svg class="brand__mark" aria-hidden="true"><use href="#bf-mark"/></svg>
+      <span class="brand__word">biohacker<i class="pad" aria-hidden="true"></i>fun</span>
+      <span class="brand__sub mono">项目 001</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="页面导航">
+      <a href="#why">立论</a>
+      <a href="#gear">重器</a>
+      <a href="#atlas">图谱</a>
+      <a href="#extend">扩展</a>
+      <a href="#verify">验证</a>
+      <a href="#log">日志</a>
+      <a href="#get">接入</a>
+    </nav>
+
+    <div class="tools">
+      <button class="tgl" type="button" data-toggle="layer" aria-pressed="false" title="走线与信号通道着色（快捷键 D）">
+        <span class="tgl__ico tgl__ico--ch" aria-hidden="true"></span>数据层
+      </button>
+      <button class="tgl" type="button" data-toggle="grid" aria-pressed="false" title="显示 12 栏网格（快捷键 G）">
+        <span class="tgl__ico tgl__ico--grid" aria-hidden="true"></span>网格
+      </button>
+      <a class="ghlink" href="https://github.com/third8923/netadmin-toolbox" target="_blank" rel="noopener">
+        <span class="mono">GitHub</span>
+        <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 9L9 3M9 3H4.5M9 3v4.5"/></svg>
+      </a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">菜单</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ─────────────────────────── 首屏 ─────────────────────────── -->
+<section class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="kicker mono reveal">VOL.01 / 2026 / 项目 001 — biohacker.fun</p>
+      <h1 class="hero__title reveal">网管工具箱</h1>
+      <p class="hero__cap mono reveal">NETADMIN<i class="pad"></i>TOOLBOX<span class="dim"> · v2.16</span></p>
+      <p class="hero__lead reveal">一个约 3.5 MB 的 exe，装下 69 个模块、15 个分组。不安装、不驻留、不带多余的运行时——拷进 U 盘，双击就跑，跑完就走。</p>
+      <div class="hero__cta reveal">
+        <a class="btn btn--ink" href="https://github.com/third8923/netadmin-toolbox/releases/download/v2.16/netadmin-toolbox-v2.16-win64.zip">
+          下载 v2.16
+          <span class="btn__meta mono">1.41 MB · win64</span>
+        </a>
+        <a class="btn btn--ghost" href="https://github.com/third8923/netadmin-toolbox" target="_blank" rel="noopener">
+          读源码
+          <span class="btn__meta mono">MIT</span>
+        </a>
+      </div>
+      <ul class="hero__facts mono reveal">
+        <li>C++20 / Win32</li>
+        <li>零第三方库</li>
+        <li>中 / 繁 / EN</li>
+        <li>无安装器 · 无服务 · 无驱动</li>
+      </ul>
+    </div>
+
+    <div class="hero__art">
+      <svg class="bf bf--color reveal" viewBox="0 0 192 103.2" aria-label="biohacker.fun 主标志：蝶翅是画好的电路板"><use href="#bf"/></svg>
+
+      <div class="meta reveal">
+        <p class="meta__vol mono">蜕变进度 <span class="dim">/ 已完成 v1.0</span></p>
+        <ol class="stages">
+          <li class="stages__i is-done"><span class="stages__pad" aria-hidden="true"></span>卵<em class="mono">v0.1</em></li>
+          <li class="stages__i is-done"><span class="stages__pad" aria-hidden="true"></span>幼虫<em class="mono">v0.5</em></li>
+          <li class="stages__i is-done"><span class="stages__pad" aria-hidden="true"></span>蛹<em class="mono">v0.9</em></li>
+          <li class="stages__i is-now"><span class="stages__pad" aria-hidden="true"></span>蝶<em class="mono">v1.0</em></li>
+        </ol>
+        <p class="meta__now mono">现在 <b>v2.16</b> · 2026-10-27 发布</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__foot wrap">
+    <span class="mono">向下滚动<span class="hide-sm"> · 或按 <kbd>D</kbd> 开数据层 / <kbd>G</kbd> 开网格</span></span>
+    <svg class="hero__down" viewBox="0 0 12 20" aria-hidden="true"><path d="M6 1v17M1 13l5 5 5-5"/></svg>
+  </div>
+</section>
+
+<!-- ─────────────────────────── 走线带 ─────────────────────────── -->
+<div class="traces" aria-hidden="true">
+  <svg viewBox="0 0 1600 200" preserveAspectRatio="xMinYMid slice">
+    <g class="tr__line">
+      <path class="t-out" pathLength="1" data-draw d="M0 44H320L344 68H700L724 44H1600"/>
+      <path class="t-in" pathLength="1" data-draw d="M0 108H200L224 132H540L564 108H1600"/>
+      <path class="t-in" pathLength="1" data-draw d="M0 172H400L424 148H820L844 172H1600"/>
+    </g>
+    <g class="tr__pads">
+      <circle cx="320" cy="44" r="4.6"/><circle cx="344" cy="68" r="4.6"/>
+      <circle cx="700" cy="68" r="4.6"/><circle cx="724" cy="44" r="4.6"/>
+      <circle cx="200" cy="108" r="4.6"/><circle cx="224" cy="132" r="4.6"/>
+      <circle cx="540" cy="132" r="4.6"/><circle cx="564" cy="108" r="4.6"/>
+      <circle cx="400" cy="172" r="4.6"/><circle cx="424" cy="148" r="4.6"/>
+      <circle cx="820" cy="148" r="4.6"/><circle cx="844" cy="172" r="4.6"/>
+    </g>
+    <g class="tr__labels">
+      <text x="14" y="30">PURGE</text>
+      <text x="14" y="94">SESS</text>
+      <text x="14" y="158">MESH</text>
+    </g>
+    <g class="tr tr--block">
+      <path pathLength="1" data-draw d="M600 68L624 44H690"/>
+      <circle class="tr__end" cx="690" cy="44" r="5.6"/>
+      <text class="tr__labels" x="704" y="30">BLOCKED</text>
+    </g>
+    <text class="tr__mark" x="1570" y="94" text-anchor="end">VOL.01 / NO.001</text>
+  </svg>
+</div>
+
+<!-- ─────────────────────────── 事实带 ─────────────────────────── -->
+<div class="strip">
+  <div class="wrap strip__in">
+    <dl class="facts">
+      <div><dt class="mono">单文件</dt><dd>≈3.5 <span class="unit">MB</span></dd></div>
+      <div><dt class="mono">模块</dt><dd>69</dd></div>
+      <div><dt class="mono">分组</dt><dd>15</dd></div>
+      <div><dt class="mono">第三方库</dt><dd>0</dd></div>
+      <div><dt class="mono">界面</dt><dd>3 <span class="unit">语言</span></dd></div>
+      <div><dt class="mono">许可</dt><dd class="facts__txt">MIT</dd></div>
+      <div><dt class="mono">安装</dt><dd class="facts__txt">免</dd></div>
+    </dl>
+  </div>
+</div>
+
+<!-- ─────────────────────────── 界面示意 ─────────────────────────── -->
+<section class="shot" aria-labelledby="shot-h">
+  <div class="wrap">
+    <div class="shot__hd reveal">
+      <h2 class="shot__h" id="shot-h">界面示意</h2>
+      <p class="shot__meta mono">v2.16 · 界面按真实布局重绘，非截图 · 1200 × 760</p>
+    </div>
+
+    <div class="win reveal" role="img" aria-label="NetAdmin Toolbox 界面示意：左栏分组、中间四列结果表、底部实时日志">
+      <div class="win__bar">
+        <span class="win__logo" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#bf-mark"/></svg></span>
+        <span class="win__name">NetAdmin Toolbox</span>
+        <span class="win__ver mono">v2.16</span>
+        <span class="win__acts mono">主题 · 缩放 100% · 以管理员重启</span>
+        <span class="win__keys" aria-hidden="true"><i></i><i></i><i></i></span>
+      </div>
+
+      <div class="win__body">
+        <aside class="win__side">
+          <div class="win__search mono">搜索模块 · Ctrl+F</div>
+          <ul class="win__grp">
+            <li>系统管理 <b class="mono">5</b></li>
+            <li>系统信息 <b class="mono">5</b></li>
+            <li>系统维护 <b class="mono">1</b></li>
+            <li>软件管家 <b class="mono">11</b></li>
+            <li>网络管理 <b class="mono">10</b></li>
+            <li>安全体检 <b class="mono">2</b></li>
+            <li>远程终端 <b class="mono">3</b></li>
+            <li>密码工具 <b class="mono">4</b></li>
+            <li>净化中心 <b class="mono">5</b></li>
+            <li>网络诊断 <b class="mono">3</b></li>
+          </ul>
+          <div class="win__mods">
+            <p class="win__mt mono">系统信息</p>
+            <ul>
+              <li class="is-on">系统概览</li>
+              <li>磁盘信息</li>
+              <li>启动项</li>
+              <li>已安装补丁</li>
+              <li>环境变量</li>
+            </ul>
+          </div>
+        </aside>
+
+        <div class="win__main">
+          <div class="win__tool">
+            <span class="win__crumb mono">系统信息 / 系统概览</span>
+            <span class="win__btns" aria-hidden="true"><i>扫描</i><i>导出</i></span>
+          </div>
+          <table class="win__tbl">
+            <thead>
+              <tr><th>项目</th><th>值</th><th>分类</th><th>备注</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>操作系统</td><td>Windows 11 专业版 23H2</td><td>OS</td><td class="mono">22631.4460</td></tr>
+              <tr><td>处理器</td><td>12th Gen Intel Core i5-12400</td><td>CPU</td><td class="mono">6C / 12T</td></tr>
+              <tr><td>内存</td><td>32 GB DDR4-3200</td><td>内存</td><td class="mono">可用 21.4 GB</td></tr>
+              <tr><td>架构</td><td>x64</td><td>系统</td><td class="mono">—</td></tr>
+              <tr><td>主机名</td><td>BHF-WS-014</td><td>标识</td><td class="mono">域 BHF</td></tr>
+              <tr><td>运行时长</td><td>3 天 07:12:44</td><td>系统</td><td class="mono">上次启动 10-26</td></tr>
+            </tbody>
+          </table>
+          <div class="win__log mono">
+            <p><span>[09:41:02]</span> 模块 sys.info 启动</p>
+            <p><span>[09:41:02]</span> 读取 HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion</p>
+            <p><span>[09:41:03]</span> 6 项已返回 · 用时 41 ms</p>
+            <p><span>[09:41:03]</span> 完成：6 项 / 跳过 0 / 失败 0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shot__cap">
+      <p><b>左栏</b>15 个分组，同一分组自动归组；Ctrl+F 实时过滤标题、描述与 ID。</p>
+      <p><b>中间</b>四列表格，列头可排序；扫描、清理、动作按钮由模块自己声明。</p>
+      <p><b>底部</b>日志逐行流式输出，Esc 随时停止；没有一条路径需要你记住命令行。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── §01 立论 ─────────────────────────── -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="kicker mono reveal">§01 / 立论 · WHY</p>
+      <h2 class="sec__title reveal">一个 exe，就是全部交付</h2>
+      <p class="sec__lead reveal">网管的时间不该花在找工具、装环境、被拦截、写解释上。这台机器可能刚重装完，可能没有网络，可能连你的 U 盘都认不出来——它仍然要能在十分钟内回到可交付状态。</p>
+    </header>
+
+    <div class="why">
+      <ol class="prin">
+        <li class="prin__i reveal">
+          <span class="prin__n mono">01</span>
+          <h3>单文件即交付</h3>
+          <p>没有安装包、没有服务、没有驱动、没有第三方 DLL。渲染、规则引擎、二维码、压缩解码全部编进同一个 exe，进程退出即散场。</p>
+        </li>
+        <li class="prin__i reveal">
+          <span class="prin__n mono">02</span>
+          <h3>零依赖是承诺，不是营销</h3>
+          <p>只碰 Win32 与 Windows SDK。QR 编码器、INFLATE 解码、YARA 子集、dHash 感知哈希、Winapp2 解析器都是手写的——所以它能在一台什么都装不上的机器上跑。</p>
+        </li>
+        <li class="prin__i reveal">
+          <span class="prin__n mono">03</span>
+          <h3>说真话优先于“看起来成功”</h3>
+          <p>权限不够就报权限不够，逐项标注 access denied；跳过就说跳过，失败就列失败。宁可交一份不好看的报告，也不伪造一次成功。</p>
+        </li>
+        <li class="prin__i reveal">
+          <span class="prin__n mono">04</span>
+          <h3>可逆才算做完</h3>
+          <p>动之前先备份成 TSV，动之后能撤销：流氓软件清理按逆序回放，Windows 优化 40 项可逆，更新锁定留一键还原。写完就回不去的功能，不做。</p>
+        </li>
+      </ol>
+
+      <aside class="why__aside reveal">
+        <p class="why__q">“蛹里发生的改变，外面看不见——编译期允许静默。”</p>
+        <p class="why__s mono">biohacker.fun · 立论附注</p>
+        <dl class="why__dl mono">
+          <div><dt>目标场景</dt><dd>刚重装的 Windows</dd></div>
+          <div><dt>载体</dt><dd>一个 U 盘</dd></div>
+          <div><dt>交付时间</dt><dd>≤ 10 分钟</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── §02 重器 ─────────────────────────── -->
+<section class="sec sec--panel" id="gear">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="kicker mono reveal">§02 / 三件重器 · FLAGSHIP</p>
+      <h2 class="sec__title reveal">三种最常被叫去现场的场景</h2>
+      <p class="sec__lead reveal">不是功能清单。是三个真实发生过很多次的开场白：“这台机器被装了东西”、“帮我连一下那台服务器”、“新机器要进内网”。</p>
+    </header>
+
+    <article class="gear reveal">
+      <div class="gear__art">
+        <svg viewBox="0 0 480 300" aria-hidden="true" class="dg"><text class="dg__t9" x="0" y="12">13 个检测点 · 同时看</text><g class="dg__pts"><rect x="0" y="26" width="111" height="40"/><rect x="123" y="26" width="111" height="40"/><rect x="246" y="26" width="111" height="40"/><rect x="369" y="26" width="111" height="40"/><rect x="0" y="76" width="111" height="40"/><rect x="123" y="76" width="111" height="40"/><rect x="246" y="76" width="111" height="40"/><rect x="369" y="76" width="111" height="40"/><rect x="0" y="126" width="111" height="40"/><rect x="123" y="126" width="111" height="40"/><rect x="246" y="126" width="111" height="40"/><rect x="369" y="126" width="111" height="40"/><rect x="0" y="176" width="111" height="40"/></g><g class="dg__cell"><text x="12" y="51">进程</text><text x="135" y="51">服务</text><text x="258" y="51">驱动</text><text x="381" y="51">内核模块</text><text x="12" y="101">隐藏进程</text><text x="135" y="101">自启动</text><text x="258" y="101">计划任务</text><text x="381" y="101">Shell 扩展</text><text x="12" y="151">输入法</text><text x="135" y="151">文件关联</text><text x="258" y="151">浏览器扩展</text><text x="381" y="151">hosts</text><text x="12" y="201">代理</text></g><g class="dg__pads"><circle cx="99" cy="46" r="2.8"/><circle cx="222" cy="46" r="2.8"/><circle cx="345" cy="46" r="2.8"/><circle cx="468" cy="46" r="2.8"/><circle cx="99" cy="96" r="2.8"/><circle cx="222" cy="96" r="2.8"/><circle cx="345" cy="96" r="2.8"/><circle cx="468" cy="96" r="2.8"/><circle cx="99" cy="146" r="2.8"/><circle cx="222" cy="146" r="2.8"/><circle cx="345" cy="146" r="2.8"/><circle cx="468" cy="146" r="2.8"/><circle cx="99" cy="196" r="2.8"/></g><text class="dg__t9" x="0" y="244">4 步判定 · 一次走完</text><path class="dg__rule" d="M0 262H480"/><g class="dg__pads"><circle cx="60" cy="262" r="4.4"/><circle cx="180" cy="262" r="4.4"/><circle cx="300" cy="262" r="4.4"/><circle cx="420" cy="262" r="4.4"/></g><g class="dg__labels"><text x="60" y="283" text-anchor="middle">白名单</text><text x="180" y="283" text-anchor="middle">微软签名</text><text x="300" y="283" text-anchor="middle">黑名单</text><text x="420" y="283" text-anchor="middle">目录特征</text></g></svg>
+      </div>
+      <div class="gear__txt">
+        <p class="gear__id mono">purg.scan · purg.rules · purg.yara · purg.homepage · purg.wulock</p>
+        <h3 class="gear__h">净化中心</h3>
+        <p class="gear__p">13 个检测点同时看：进程、服务、驱动、内核模块、隐藏进程、自启动、计划任务、Shell 扩展、输入法、文件关联、浏览器扩展、hosts、代理。四步判定，动之前先备份成 <code>purg-backup.tsv</code>，撤销按逆序一条条回放。</p>
+        <ul class="gear__list">
+          <li><span class="mono">396</span> 条签名 + <span class="mono">1130</span> 条目录特征，双源在线更新、SHA256 校验</li>
+          <li><span class="mono">111</span> 进程 / <span class="mono">279</span> 服务 / <span class="mono">198</span> 微软签名驱动实测，<b>0 假阳性</b></li>
+          <li>自带 YARA 子集引擎与可视化规则构建器，规则不进在线更新层</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="gear gear--flip reveal">
+      <div class="gear__art">
+        <svg viewBox="0 0 480 300" aria-hidden="true" class="dg"><g class="dg__box"><rect x="0" y="44" width="146" height="96" rx="12"/><rect x="334" y="44" width="146" height="96" rx="12"/></g><g class="dg__t9"><text x="0" y="32">LOCAL</text><text x="334" y="32">SERVER</text></g><g class="dg__labels"><text x="14" y="70">netadmin-toolbox</text><text x="348" y="70">sshd :22</text><text x="14" y="112">GUI / CLI</text><text x="348" y="112">system OpenSSH</text></g><g class="dg__wire"><path d="M146 62H200L214 76H334"/><path d="M146 88H334"/><path d="M334 104H240L226 118H146"/></g><g class="dg__pads"><circle cx="146" cy="62" r="4.4"/><circle cx="334" cy="76" r="4.4"/><circle cx="146" cy="88" r="4.4"/><circle cx="334" cy="88" r="4.4"/><circle cx="334" cy="104" r="4.4"/><circle cx="146" cy="118" r="4.4"/></g><g class="dg__labels"><text x="0" y="162">netadmin-sessions.ini</text><text x="334" y="162">ssh -N</text></g><path class="dg__rule" d="M0 186H480"/><g class="dg__box"><rect x="0" y="206" width="146" height="34" rx="8"/><rect x="167" y="206" width="146" height="34" rx="8"/><rect x="334" y="206" width="146" height="34" rx="8"/></g><g class="dg__cell"><text x="14" y="228">-L 本地转发</text><text x="181" y="228">-R 远端转发</text><text x="348" y="228">-D 动态 SOCKS</text></g><g class="dg__labels"><text x="0" y="272">口令不落盘 · 交互式或公钥，没有第三种</text><text x="0" y="292">隧道句柄只活在进程里，退出即断</text></g></svg>
+      </div>
+      <div class="gear__txt">
+        <p class="gear__id mono">net.sessions · net.tunnel · net.serial</p>
+        <h3 class="gear__h">远程终端</h3>
+        <p class="gear__p">用 Windows 自带的 OpenSSH，不塞第二个客户端。会话（SSH / SFTP / Telnet）存进 <code>netadmin-sessions.ini</code>，端口转发生成 <code>ssh -N</code>，串口监视器按 DCB 配置收发。口令从不落盘——交互式输入或公钥，没有第三种。</p>
+        <ul class="gear__list">
+          <li>三种转发 <span class="mono">-L / -R / -D</span>，启停与实时状态都在一张表里</li>
+          <li>串口：COM 枚举、参数配置、监视与发送即读</li>
+          <li>交互式串口 TUI 暂缓——先给能用的，再给好看的</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="gear reveal">
+      <div class="gear__art">
+        <svg viewBox="0 0 480 300" aria-hidden="true" class="dg"><g class="dg__box"><rect x="0" y="44" width="176" height="92" rx="12"/></g><text class="dg__t9" x="0" y="32">剪贴板 · 配置串</text><g class="dg__cell"><text x="14" y="76">NATBMESH1|srv|key</text></g><g class="dg__labels"><text x="14" y="98">容忍空白与引号</text><text x="14" y="116">密钥掩码 · DPAPI 加密</text></g><g class="dg__wire"><path d="M176 82H198L208 72H216"/></g><circle cx="176" cy="82" r="4.4" class="dg__pad"/><rect class="dg__qrbg" x="220" y="36" width="122" height="122" rx="8"/><g class="dg__qrmod"><rect x="226.0" y="42.0" width="30.8" height="4.4"/><rect x="270.0" y="42.0" width="4.4" height="4.4"/><rect x="305.2" y="42.0" width="30.8" height="4.4"/><rect x="226.0" y="46.4" width="4.4" height="4.4"/><rect x="252.4" y="46.4" width="4.4" height="4.4"/><rect x="270.0" y="46.4" width="13.2" height="4.4"/><rect x="292.0" y="46.4" width="4.4" height="4.4"/><rect x="305.2" y="46.4" width="4.4" height="4.4"/><rect x="331.6" y="46.4" width="4.4" height="4.4"/><rect x="226.0" y="50.8" width="4.4" height="4.4"/><rect x="234.8" y="50.8" width="13.2" height="4.4"/><rect x="252.4" y="50.8" width="4.4" height="4.4"/><rect x="305.2" y="50.8" width="4.4" height="4.4"/><rect x="314.0" y="50.8" width="13.2" height="4.4"/><rect x="331.6" y="50.8" width="4.4" height="4.4"/><rect x="226.0" y="55.2" width="4.4" height="4.4"/><rect x="234.8" y="55.2" width="13.2" height="4.4"/><rect x="252.4" y="55.2" width="4.4" height="4.4"/><rect x="305.2" y="55.2" width="4.4" height="4.4"/><rect x="314.0" y="55.2" width="13.2" height="4.4"/><rect x="331.6" y="55.2" width="4.4" height="4.4"/><rect x="226.0" y="59.6" width="4.4" height="4.4"/><rect x="234.8" y="59.6" width="13.2" height="4.4"/><rect x="252.4" y="59.6" width="4.4" height="4.4"/><rect x="305.2" y="59.6" width="4.4" height="4.4"/><rect x="314.0" y="59.6" width="13.2" height="4.4"/><rect x="331.6" y="59.6" width="4.4" height="4.4"/><rect x="226.0" y="64.0" width="4.4" height="4.4"/><rect x="252.4" y="64.0" width="4.4" height="4.4"/><rect x="305.2" y="64.0" width="4.4" height="4.4"/><rect x="331.6" y="64.0" width="4.4" height="4.4"/><rect x="226.0" y="68.4" width="30.8" height="4.4"/><rect x="261.2" y="68.4" width="4.4" height="4.4"/><rect x="270.0" y="68.4" width="4.4" height="4.4"/><rect x="278.8" y="68.4" width="4.4" height="4.4"/><rect x="287.6" y="68.4" width="4.4" height="4.4"/><rect x="296.4" y="68.4" width="4.4" height="4.4"/><rect x="305.2" y="68.4" width="30.8" height="4.4"/><rect x="252.4" y="77.2" width="4.4" height="4.4"/><rect x="226.0" y="81.6" width="4.4" height="4.4"/><rect x="278.8" y="81.6" width="4.4" height="4.4"/><rect x="327.2" y="81.6" width="4.4" height="4.4"/><rect x="226.0" y="86.0" width="4.4" height="4.4"/><rect x="252.4" y="86.0" width="4.4" height="4.4"/><rect x="270.0" y="86.0" width="4.4" height="4.4"/><rect x="278.8" y="86.0" width="8.8" height="4.4"/><rect x="292.0" y="86.0" width="4.4" height="4.4"/><rect x="331.6" y="86.0" width="4.4" height="4.4"/><rect x="265.6" y="90.4" width="4.4" height="4.4"/><rect x="274.4" y="90.4" width="22.0" height="4.4"/><rect x="327.2" y="90.4" width="8.8" height="4.4"/><rect x="226.0" y="94.8" width="4.4" height="4.4"/><rect x="252.4" y="94.8" width="4.4" height="4.4"/><rect x="270.0" y="94.8" width="8.8" height="4.4"/><rect x="287.6" y="94.8" width="4.4" height="4.4"/><rect x="331.6" y="94.8" width="4.4" height="4.4"/><rect x="226.0" y="99.2" width="4.4" height="4.4"/><rect x="278.8" y="99.2" width="13.2" height="4.4"/><rect x="331.6" y="99.2" width="4.4" height="4.4"/><rect x="230.4" y="103.6" width="4.4" height="4.4"/><rect x="252.4" y="103.6" width="4.4" height="4.4"/><rect x="270.0" y="103.6" width="8.8" height="4.4"/><rect x="292.0" y="103.6" width="4.4" height="4.4"/><rect x="327.2" y="103.6" width="8.8" height="4.4"/><rect x="230.4" y="108.0" width="4.4" height="4.4"/><rect x="274.4" y="108.0" width="4.4" height="4.4"/><rect x="283.2" y="108.0" width="4.4" height="4.4"/><rect x="292.0" y="108.0" width="4.4" height="4.4"/><rect x="327.2" y="108.0" width="4.4" height="4.4"/><rect x="252.4" y="112.4" width="4.4" height="4.4"/><rect x="327.2" y="112.4" width="4.4" height="4.4"/><rect x="327.2" y="116.8" width="4.4" height="4.4"/><rect x="226.0" y="121.2" width="30.8" height="4.4"/><rect x="331.6" y="121.2" width="4.4" height="4.4"/><rect x="226.0" y="125.6" width="4.4" height="4.4"/><rect x="252.4" y="125.6" width="4.4" height="4.4"/><rect x="226.0" y="130.0" width="4.4" height="4.4"/><rect x="234.8" y="130.0" width="13.2" height="4.4"/><rect x="252.4" y="130.0" width="4.4" height="4.4"/><rect x="327.2" y="130.0" width="8.8" height="4.4"/><rect x="226.0" y="134.4" width="4.4" height="4.4"/><rect x="234.8" y="134.4" width="13.2" height="4.4"/><rect x="252.4" y="134.4" width="4.4" height="4.4"/><rect x="226.0" y="138.8" width="4.4" height="4.4"/><rect x="234.8" y="138.8" width="13.2" height="4.4"/><rect x="252.4" y="138.8" width="4.4" height="4.4"/><rect x="327.2" y="138.8" width="8.8" height="4.4"/><rect x="226.0" y="143.2" width="4.4" height="4.4"/><rect x="252.4" y="143.2" width="4.4" height="4.4"/><rect x="265.6" y="143.2" width="4.4" height="4.4"/><rect x="278.8" y="143.2" width="13.2" height="4.4"/><rect x="296.4" y="143.2" width="8.8" height="4.4"/><rect x="309.6" y="143.2" width="4.4" height="4.4"/><rect x="318.4" y="143.2" width="17.6" height="4.4"/><rect x="226.0" y="147.6" width="30.8" height="4.4"/><rect x="265.6" y="147.6" width="4.4" height="4.4"/><rect x="274.4" y="147.6" width="8.8" height="4.4"/><rect x="309.6" y="147.6" width="4.4" height="4.4"/><rect x="322.8" y="147.6" width="4.4" height="4.4"/></g><g class="dg__labels"><text x="220" y="176">零依赖 QR · 字节模式 / ECC M / v1–v10</text></g><g class="dg__wire"><path d="M342 96H364L374 86H392"/></g><circle cx="392" cy="86" r="5.6" class="dg__pad"/><g class="dg__labels"><text x="404" y="90">tailscale up</text></g><path class="dg__rule" d="M0 198H480"/><path class="dg__rule" d="M0 238H480"/><g class="dg__pads"><circle cx="60" cy="238" r="4.4"/><circle cx="180" cy="238" r="4.4"/><circle cx="300" cy="238" r="4.4"/><circle cx="420" cy="238" r="4.4"/></g><g class="dg__labels"><text x="60" y="259" text-anchor="middle">检测客户端</text><text x="180" y="259" text-anchor="middle">静默安装</text><text x="300" y="259" text-anchor="middle">入网</text><text x="420" y="259" text-anchor="middle">回读状态</text></g><g class="dg__labels"><text x="0" y="290">37B–213B 五档，zxing-cpp 往返逐字节一致</text></g></svg>
+      </div>
+      <div class="gear__txt">
+        <p class="gear__id mono">net.mesh</p>
+        <h3 class="gear__h">组网助手</h3>
+        <p class="gear__p">自建 headscale 的入网引导。粘一串 <code>NATBMESH1|server|preauth-key</code>，或者扫一个自己当场生成的二维码：本机零依赖 QR 编码器（字节模式、ECC M、v1–v10），识别客户端、静默安装、<code>tailscale up</code>、回读状态，一条龙。</p>
+        <ul class="gear__list">
+          <li>密钥掩码显示，落盘前 DPAPI 加密</li>
+          <li>二维码经 zxing-cpp 往返解码验证，214B 正确拒绝</li>
+          <li>入网 / 退网 / 节点列表 / 登出重置都在一处</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ─────────────────────────── 引文 ─────────────────────────── -->
+<blockquote class="quote">
+  <div class="wrap">
+    <p class="quote__t reveal">“破茧不是终点，<br>是又一次编译的开始。”</p>
+    <p class="quote__s mono reveal">biohacker.fun · 项目 001</p>
+  </div>
+</blockquote>
+
+<!-- ─────────────────────────── §03 图谱 ─────────────────────────── -->
+<section class="sec" id="atlas">
+  <div class="wrap">
+    <header class="sec__head sec__head--split">
+      <div>
+        <p class="kicker mono reveal">§03 / 模块图谱 · ATLAS</p>
+        <h2 class="sec__title reveal">69 个模块，15 个分组</h2>
+        <p class="sec__lead reveal">GUI 与 CLI 里没有一行模块专用代码——它们只认识 <code>IModule</code> 与 <code>ModuleRegistry</code>，其余全部从注册表长出来。侧栏如此，<code>--list</code> 也如此。</p>
+      </div>
+      <div class="atlas__ctl reveal">
+        <label class="field">
+          <span class="field__ico" aria-hidden="true"></span>
+          <input type="search" id="atlas-q" placeholder="搜模块名、ID 或分组" aria-label="搜索模块" autocomplete="off">
+          <kbd class="mono">/</kbd>
+        </label>
+        <p class="atlas__count mono"><b id="atlas-n">69</b> / 69 模块 · <b id="atlas-g">15</b> 分组</p>
+      </div>
+    </header>
+
+    <div class="chips" role="group" aria-label="按分组筛选">
+      <button class="chip is-on" type="button" data-g="all">全部</button>
+      <button class="chip" type="button" data-g="g01">系统管理</button>
+      <button class="chip" type="button" data-g="g02">系统信息</button>
+      <button class="chip" type="button" data-g="g03">系统维护</button>
+      <button class="chip" type="button" data-g="g04">软件管家</button>
+      <button class="chip" type="button" data-g="g05">网络管理</button>
+      <button class="chip" type="button" data-g="g06">安全体检</button>
+      <button class="chip" type="button" data-g="g07">远程终端</button>
+      <button class="chip" type="button" data-g="g08">密码工具</button>
+      <button class="chip" type="button" data-g="g09">净化中心</button>
+      <button class="chip" type="button" data-g="g10">网络诊断</button>
+      <button class="chip" type="button" data-g="g11">常用管理</button>
+      <button class="chip" type="button" data-g="g12">磁盘清理</button>
+      <button class="chip" type="button" data-g="g13">空间分析</button>
+      <button class="chip" type="button" data-g="g14">高级工具</button>
+      <button class="chip" type="button" data-g="g15">系统优化</button>
+    </div>
+
+    <div class="boards" id="boards">
+      <article class="board" data-g="g01">
+        <header class="board__h"><span class="mono">G01</span><h3>系统管理</h3><span class="board__n mono">5</span></header>
+        <ul>
+          <li class="mod" data-k="sys.tasks 计划任务 系统管理"><code>sys.tasks</code><span>计划任务</span></li>
+          <li class="mod" data-k="sys.process 进程管理 系统管理"><code>sys.process</code><span>进程管理</span></li>
+          <li class="mod" data-k="sys.services 服务管理 系统管理"><code>sys.services</code><span>服务管理</span></li>
+          <li class="mod" data-k="sys.acct 账户部署 系统管理"><code>sys.acct</code><span>账户部署</span></li>
+          <li class="mod" data-k="sys.domain 计算机名与域 系统管理"><code>sys.domain</code><span>计算机名与域</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g02">
+        <header class="board__h"><span class="mono">G02</span><h3>系统信息</h3><span class="board__n mono">5</span></header>
+        <ul>
+          <li class="mod" data-k="sys.info 系统概览 系统信息"><code>sys.info</code><span>系统概览</span></li>
+          <li class="mod" data-k="sys.disk 磁盘信息 系统信息"><code>sys.disk</code><span>磁盘信息</span></li>
+          <li class="mod" data-k="sys.startup 启动项 系统信息"><code>sys.startup</code><span>启动项</span></li>
+          <li class="mod" data-k="sys.hotfix 已安装补丁 系统信息"><code>sys.hotfix</code><span>已安装补丁</span></li>
+          <li class="mod" data-k="sys.env 环境变量 系统信息"><code>sys.env</code><span>环境变量</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g03">
+        <header class="board__h"><span class="mono">G03</span><h3>系统维护</h3><span class="board__n mono">1</span></header>
+        <ul>
+          <li class="mod" data-k="sys.hosts hosts 文件 系统维护"><code>sys.hosts</code><span>hosts 文件</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g04">
+        <header class="board__h"><span class="mono">G04</span><h3>软件管家</h3><span class="board__n mono">11</span></header>
+        <ul>
+          <li class="mod" data-k="soft.rec 精选必装 · 63 款 软件管家"><code>soft.rec</code><span>精选必装 · 63 款</span></li>
+          <li class="mod" data-k="soft.rec.* 分类面板 ×7 软件管家 分类 面板" data-n="7"><code>soft.rec.*</code><span>分类面板 ×7</span></li>
+          <li class="mod" data-k="soft.search 软件搜索 软件管家"><code>soft.search</code><span>软件搜索</span></li>
+          <li class="mod" data-k="soft.installed 已安装软件 软件管家"><code>soft.installed</code><span>已安装软件</span></li>
+          <li class="mod" data-k="soft.upgrade 软件升级 软件管家"><code>soft.upgrade</code><span>软件升级</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g05">
+        <header class="board__h"><span class="mono">G05</span><h3>网络管理</h3><span class="board__n mono">10</span></header>
+        <ul>
+          <li class="mod" data-k="net.sharemap 共享扫描与网盘映射 网络管理"><code>net.sharemap</code><span>共享扫描与网盘映射</span></li>
+          <li class="mod" data-k="net.sharehost 共享部署 网络管理"><code>net.sharehost</code><span>共享部署</span></li>
+          <li class="mod" data-k="net.dnsopt DNS 优化 网络管理"><code>net.dnsopt</code><span>DNS 优化</span></li>
+          <li class="mod" data-k="net.adapters 网络适配器 网络管理"><code>net.adapters</code><span>网络适配器</span></li>
+          <li class="mod" data-k="net.conn 网络连接 网络管理"><code>net.conn</code><span>网络连接</span></li>
+          <li class="mod" data-k="net.route 路由表 网络管理"><code>net.route</code><span>路由表</span></li>
+          <li class="mod" data-k="net.arp ARP 表 网络管理"><code>net.arp</code><span>ARP 表</span></li>
+          <li class="mod" data-k="net.flushdns 刷新 DNS 缓存 网络管理"><code>net.flushdns</code><span>刷新 DNS 缓存</span></li>
+          <li class="mod" data-k="net.wifi 无线网络 网络管理"><code>net.wifi</code><span>无线网络</span></li>
+          <li class="mod" data-k="net.mesh 组网助手 网络管理"><code>net.mesh</code><span>组网助手</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g06">
+        <header class="board__h"><span class="mono">G06</span><h3>安全体检</h3><span class="board__n mono">2</span></header>
+        <ul>
+          <li class="mod" data-k="sec.scan 一键体检 · 8 项 安全体检"><code>sec.scan</code><span>一键体检 · 8 项</span></li>
+          <li class="mod" data-k="sec.repair 系统修复 · 9 项 安全体检"><code>sec.repair</code><span>系统修复 · 9 项</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g07">
+        <header class="board__h"><span class="mono">G07</span><h3>远程终端</h3><span class="board__n mono">3</span></header>
+        <ul>
+          <li class="mod" data-k="net.sessions 远程会话 远程终端"><code>net.sessions</code><span>远程会话</span></li>
+          <li class="mod" data-k="net.tunnel 端口转发隧道 远程终端"><code>net.tunnel</code><span>端口转发隧道</span></li>
+          <li class="mod" data-k="net.serial 串口终端 远程终端"><code>net.serial</code><span>串口终端</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g08">
+        <header class="board__h"><span class="mono">G08</span><h3>密码工具</h3><span class="board__n mono">4</span></header>
+        <ul>
+          <li class="mod" data-k="pwd.reveal 星号密码查看器 密码工具"><code>pwd.reveal</code><span>星号密码查看器</span></li>
+          <li class="mod" data-k="pwd.zip ZIP 密码恢复 密码工具"><code>pwd.zip</code><span>ZIP 密码恢复</span></li>
+          <li class="mod" data-k="pwd.cred 凭据管理器 密码工具"><code>pwd.cred</code><span>凭据管理器</span></li>
+          <li class="mod" data-k="pwd.wifi WiFi 密码查看 密码工具"><code>pwd.wifi</code><span>WiFi 密码查看</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g09">
+        <header class="board__h"><span class="mono">G09</span><h3>净化中心</h3><span class="board__n mono">5</span></header>
+        <ul>
+          <li class="mod" data-k="purg.wulock 系统更新锁定 净化中心"><code>purg.wulock</code><span>系统更新锁定</span></li>
+          <li class="mod" data-k="purg.rules 规则库生成 净化中心"><code>purg.rules</code><span>规则库生成</span></li>
+          <li class="mod" data-k="purg.yara YARA 扫描 净化中心"><code>purg.yara</code><span>YARA 扫描</span></li>
+          <li class="mod" data-k="purg.homepage 主页锁定 净化中心"><code>purg.homepage</code><span>主页锁定</span></li>
+          <li class="mod" data-k="purg.scan 全盘查杀 净化中心"><code>purg.scan</code><span>全盘查杀</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g10">
+        <header class="board__h"><span class="mono">G10</span><h3>网络诊断</h3><span class="board__n mono">3</span></header>
+        <ul>
+          <li class="mod" data-k="net.portscan 端口扫描 网络诊断"><code>net.portscan</code><span>端口扫描</span></li>
+          <li class="mod" data-k="net.lanscan 局域网扫描 网络诊断"><code>net.lanscan</code><span>局域网扫描</span></li>
+          <li class="mod" data-k="net.diag 网络诊断 网络诊断"><code>net.diag</code><span>网络诊断</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g11">
+        <header class="board__h"><span class="mono">G11</span><h3>常用管理</h3><span class="board__n mono">6</span></header>
+        <ul>
+          <li class="mod" data-k="sys.restore 系统还原点 常用管理"><code>sys.restore</code><span>系统还原点</span></li>
+          <li class="mod" data-k="sys.users 本地用户 常用管理"><code>sys.users</code><span>本地用户</span></li>
+          <li class="mod" data-k="sys.shares 共享目录 常用管理"><code>sys.shares</code><span>共享目录</span></li>
+          <li class="mod" data-k="sys.events 事件日志分析 常用管理"><code>sys.events</code><span>事件日志分析</span></li>
+          <li class="mod" data-k="sys.power 电源计划 常用管理"><code>sys.power</code><span>电源计划</span></li>
+          <li class="mod" data-k="sys.update 缺失更新检查 常用管理"><code>sys.update</code><span>缺失更新检查</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g12">
+        <header class="board__h"><span class="mono">G12</span><h3>磁盘清理</h3><span class="board__n mono">5</span></header>
+        <ul>
+          <li class="mod" data-k="clean.basic 基础清理 · 17 项 磁盘清理"><code>clean.basic</code><span>基础清理 · 17 项</span></li>
+          <li class="mod" data-k="clean.system 系统清理 · 12 项 磁盘清理"><code>clean.system</code><span>系统清理 · 12 项</span></li>
+          <li class="mod" data-k="clean.wechat 微信清理 磁盘清理"><code>clean.wechat</code><span>微信清理</span></li>
+          <li class="mod" data-k="clean.qq QQ 清理 磁盘清理"><code>clean.qq</code><span>QQ 清理</span></li>
+          <li class="mod" data-k="clean.appcache 应用缓存 磁盘清理"><code>clean.appcache</code><span>应用缓存</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g13">
+        <header class="board__h"><span class="mono">G13</span><h3>空间分析</h3><span class="board__n mono">6</span></header>
+        <ul>
+          <li class="mod" data-k="scan.large 大文件查找 空间分析"><code>scan.large</code><span>大文件查找</span></li>
+          <li class="mod" data-k="scan.dup 重复文件 空间分析"><code>scan.dup</code><span>重复文件</span></li>
+          <li class="mod" data-k="scan.similar 相似文件 空间分析"><code>scan.similar</code><span>相似文件</span></li>
+          <li class="mod" data-k="scan.similarimg 相似图片 空间分析"><code>scan.similarimg</code><span>相似图片</span></li>
+          <li class="mod" data-k="scan.dirs 目录大小 空间分析"><code>scan.dirs</code><span>目录大小</span></li>
+          <li class="mod" data-k="scan.apps 软件占用 空间分析"><code>scan.apps</code><span>软件占用</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g14">
+        <header class="board__h"><span class="mono">G14</span><h3>高级工具</h3><span class="board__n mono">2</span></header>
+        <ul>
+          <li class="mod" data-k="tool.move 软件搬家 高级工具"><code>tool.move</code><span>软件搬家</span></li>
+          <li class="mod" data-k="tool.usermigrate 用户目录迁移 高级工具"><code>tool.usermigrate</code><span>用户目录迁移</span></li>
+        </ul>
+      </article>
+
+      <article class="board" data-g="g15">
+        <header class="board__h"><span class="mono">G15</span><h3>系统优化</h3><span class="board__n mono">1</span></header>
+        <ul>
+          <li class="mod" data-k="tweak.winopt Windows 优化 · 40 项 系统优化"><code>tweak.winopt</code><span>Windows 优化 · 40 项</span></li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="atlas__empty" id="atlas-empty" hidden>
+      <svg viewBox="0 0 240 60" aria-hidden="true" class="es">
+        <path class="es__l" d="M8 30H74L92 12H140"/>
+        <circle cx="8" cy="30" r="4"/>
+        <text class="es__t mono" x="150" y="34">signal lost</text>
+      </svg>
+      <p class="es__h">暂无信号</p>
+      <p class="es__p">宁可留白，也不排线。换一个关键词，或回到全部。</p>
+      <button class="btn btn--ghost btn--sm" type="button" id="atlas-reset">清空筛选</button>
+    </div>
+
+    <p class="atlas__foot mono">CLI 一视同仁：<code>netadmin-toolbox.exe run &lt;id&gt;</code> · <code>--target</code> / <code>--path</code> / <code>--action</code> / <code>--pick</code> · 退出码 0 成功 / 1 参数或模块错误</p>
+  </div>
+</section>
+
+<!-- ─────────────────────────── §04 扩展 ─────────────────────────── -->
+<section class="sec sec--panel" id="extend">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="kicker mono reveal">§04 / 扩展 · PLUGIN</p>
+      <h2 class="sec__title reveal">加一个模块，只要三步</h2>
+      <p class="sec__lead reveal">建一个 <code>.cpp</code>、实现 <code>IModule</code>、写一行 <code>REGISTER_MODULE</code>。<code>build.bat</code> 自己通配 <code>src/modules/*.cpp</code>，构建脚本不用动；侧栏与 <code>--list</code> 立刻出现。</p>
+    </header>
+
+    <div class="ext">
+      <div class="ext__code reveal">
+        <div class="codehdr">
+          <span class="mono">src/modules/mymod.cpp</span>
+          <span class="mono codehdr__r">C++20</span>
+        </div>
+<pre class="code"><code><span class="c-com">#include "../module.h"</span>
+
+<span class="c-kw">class</span> <span class="c-ty">MyMod</span> : <span class="c-kw">public</span> <span class="c-ty">IModule</span> {
+<span class="c-kw">public</span>:
+  <span class="c-kw">const</span> <span class="c-ty">wchar_t</span>* <span class="c-fn">Id</span>()    <span class="c-kw">const override</span> { <span class="c-kw">return</span> <span class="c-st">L"demo.mymod"</span>; }
+  <span class="c-kw">const</span> <span class="c-ty">wchar_t</span>* <span class="c-fn">Group</span>() <span class="c-kw">const override</span> { <span class="c-kw">return</span> <span class="c-st">L"我的工具"</span>; }
+  <span class="c-ty">ModuleKind</span> <span class="c-fn">Kind</span>() <span class="c-kw">const override</span> { <span class="c-kw">return</span> <span class="c-ty">ModuleKind</span>::Inventory; }
+
+  <span class="c-ty">void</span> <span class="c-fn">Run</span>(<span class="c-ty">ModuleContext</span>&amp; ctx, <span class="c-ty">ModuleResult</span>&amp; out) <span class="c-kw">override</span> {
+    ctx.<span class="c-fn">Report</span>(<span class="c-num">0</span>, <span class="c-st">L"Working..."</span>);    <span class="c-com">// 进度回调</span>
+    ctx.<span class="c-fn">Log</span>(<span class="c-st">L" 进日志面板"</span>);       <span class="c-com">// 日志回调</span>
+    <span class="c-kw">if</span> (ctx.<span class="c-fn">Cancelled</span>()) <span class="c-kw">return</span>;   <span class="c-com">// 可取消</span>
+
+    <span class="c-ty">ModuleRow</span> r;
+    r.c1 = <span class="c-st">L"Name"</span>; r.c2 = <span class="c-st">L"Value"</span>;
+    out.rows.<span class="c-fn">push_back</span>(r);
+    out.summary = <span class="c-st">L"Done: 1 item"</span>;
+  }
+};
+
+<span class="c-ty">REGISTER_MODULE</span>(MyMod);</code></pre>
+        <p class="ext__note mono">框架核心（module / cli / qr / lang / ui）扩展时不用碰。</p>
+      </div>
+
+      <div class="ext__table reveal">
+        <h3 class="sub">接口要点</h3>
+        <table class="tbl tbl--tight">
+          <tbody>
+            <tr><th><code>Id()</code></th><td>唯一 ID，CLI 用，如 <code>net.portscan</code></td></tr>
+            <tr><th><code>Group()</code></th><td>侧栏分组名，同名自动归组</td></tr>
+            <tr><th><code>Kind()</code></th><td>Inventory / Cleaner / Action / Tweaks / Console</td></tr>
+            <tr><th><code>NeedsElevation()</code></th><td>提示以管理员运行，而非静默失败</td></tr>
+            <tr><th><code>Actions()</code></th><td>扩展动作按钮：主操作 / 撤销 / 溢出菜单</td></tr>
+            <tr><th><code>SupportsUndo()</code></th><td>可撤销的 Tweaks 必须实现 <code>Undo()</code></td></tr>
+          </tbody>
+        </table>
+        <p class="ext__p">模块返回四列表格、摘要、提示与能否清理；<code>ModuleContext</code> 提供 <code>Log()</code>、<code>Report(pct,msg)</code>、<code>Cancelled()</code>。UI 不认识任何具体模块——所以放进去就长得对。</p>
+        <div class="tree">
+          <h3 class="sub">源码结构 · ★ 为框架核心，扩展时不用碰</h3>
+          <pre><b>src/</b>
+├─ <b>module.h/.cpp</b>   <i>★</i> 插件接口与注册表
+├─ <b>cli.cpp</b>         <i>★</i> 从注册表派发命令
+├─ <b>qr.h/.cpp</b>       <i>★</i> 零依赖 QR 编码器
+├─ <b>lang.h/.cpp</b>     三语查找表 · 二分查找
+├─ <b>ui/</b>             <i>★</i> 主题 / 缩放 / 全自绘
+└─ <b>modules/</b>        一个功能一个 .cpp</pre>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── §05 验证 ─────────────────────────── -->
+<section class="sec" id="verify">
+  <div class="wrap">
+    <header class="sec__head sec__head--split">
+      <div>
+        <p class="kicker mono reveal">§05 / 验证 · PROOF</p>
+        <h2 class="sec__title reveal">报告里没有“应该可以”</h2>
+        <p class="sec__lead reveal">下面每一行都是脚本跑出来的，不是写出来的。按 <kbd>D</kbd> 打开数据层，走线与数字会按通道着色——身份层永远只有纸、墨、藤紫、金四色。</p>
+      </div>
+      <div class="key" aria-label="色彩层说明">
+        <div class="key__row">
+          <span class="mono key__l">身份层</span>
+          <ul class="key__sw">
+            <li><i style="background:#FBF7EC"></i>纸</li>
+            <li><i style="background:#3A3A44"></i>墨</li>
+            <li><i style="background:#7C5CBF"></i>藤紫</li>
+            <li><i style="background:#F2B441"></i>金</li>
+          </ul>
+        </div>
+        <div class="key__row key__row--data">
+          <span class="mono key__l">数据层</span>
+          <ul class="key__sw">
+            <li><i style="background:#2F7D6B"></i>in 进</li>
+            <li><i style="background:#9F6500"></i>out 出</li>
+            <li><i style="background:#B3453B"></i>err 异常</li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="tblwrap reveal">
+      <table class="tbl tbl--proof">
+        <caption class="mono">验证摘要 · v2.16 / 2026-10-27</caption>
+        <thead><tr><th scope="col">区域</th><th scope="col">结果</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">注册表</th><td><span class="num">69</span> 模块 / <span class="num">15</span> 分组，侧栏与 CLI 自动生成</td></tr>
+          <tr><th scope="row">CLI</th><td><code>--list</code> / <code>run &lt;id&gt;</code> / <code>--action</code> / <code>--pick</code> 全部实测</td></tr>
+          <tr><th scope="row">网络</th><td><span class="num">392</span> TCP + <span class="num">69</span> UDP 条目；LAN 扫描与 NetServerEnum 对齐</td></tr>
+          <tr><th scope="row">净化中心</th><td><span class="num">111</span> 进程 / <span class="num">279</span> 服务 / <span class="num">198</span> 微软签名驱动，<b class="ok">0 假阳性</b></td></tr>
+          <tr><th scope="row">YARA 引擎</th><td>十六进制与文本规则均命中；干净文件 <b class="ok">0 假阳性</b></td></tr>
+          <tr><th scope="row">QR 编码器</th><td>37B–213B 五档往返解码逐字节一致；214B <b class="warn">正确拒绝</b></td></tr>
+          <tr><th scope="row">DNS 优化</th><td><span class="num">14</span> 个公共解析器实测 <span class="num">8–189</span> ms，排序与应用正确</td></tr>
+          <tr><th scope="row">更新锁定</th><td>未提权逐项报 <b class="warn">access denied</b>，注册表零副作用</td></tr>
+          <tr><th scope="row">密码工具</th><td>pwd.zip <span class="num">10/10</span>；INFLATE <span class="num">27/27</span> 对 zlib</td></tr>
+          <tr><th scope="row">Winapp2 引擎</th><td>与独立 Python 参考逐行等价：<span class="num">80/80</span> 文件、<span class="num">326/326</span> 操作</td></tr>
+          <tr><th scope="row">单文件</th><td>约 <span class="num">3.5</span> MB，无安装器、无服务、无驱动、无第三方 DLL</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="limits reveal">
+      <h3 class="sub">已知限制，也写在官网上</h3>
+      <ul class="limits__list">
+        <li><span class="mono">01</span>需提权的写入路径（服务、计划任务、还原点、账户与域、共享部署、净化动作、更新锁定）只在非提权环境下验证了“正确拒绝 + 本地化归因”——它们从不假装成功。</li>
+        <li><span class="mono">02</span>非管理员运行时能看到的数据更少：部分进程名与服务启动类型受限，程序如实报告。</li>
+        <li><span class="mono">03</span>局域网与端口扫描只应针对你有权测试的网络。</li>
+        <li><span class="mono">04</span>页文件迁移、休眠关闭、WinSxS 自动清理是刻意不做的——高风险操作只读或只给指令。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── §06 日志 ─────────────────────────── -->
+<section class="sec sec--panel" id="log">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="kicker mono reveal">§06 / 蜕变日志 · CHANGELOG</p>
+      <h2 class="sec__title reveal">v0.1 到 v2.16，一直在同一个蛹里编译</h2>
+      <p class="sec__lead reveal">蜕变只有四态：卵是想法，幼虫是开发，蛹是测试，蝶是发布。版本号只在这四态上跳——每一次起飞，都背着上一次的全部代码。</p>
+    </header>
+
+    <ol class="evo reveal">
+      <li class="evo__i"><span class="evo__pad" aria-hidden="true"></span><b class="mono">v0.1</b><span>卵</span><em>想法</em></li>
+      <li class="evo__i"><span class="evo__pad" aria-hidden="true"></span><b class="mono">v0.5</b><span>幼虫</span><em>开发</em></li>
+      <li class="evo__i"><span class="evo__pad" aria-hidden="true"></span><b class="mono">v0.9</b><span>蛹</span><em>测试</em></li>
+      <li class="evo__i"><span class="evo__pad" aria-hidden="true"></span><b class="mono">v1.0</b><span>蝶</span><em>发布</em></li>
+      <li class="evo__i evo__i--now"><span class="evo__pad" aria-hidden="true"></span><b class="mono">v2.16</b><span>现在</span><em>2026-10-27</em></li>
+    </ol>
+
+    <div class="tblwrap reveal">
+      <table class="tbl tbl--rel">
+        <caption class="mono">版本记录</caption>
+        <thead><tr><th scope="col">版本</th><th scope="col">主要变化</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" class="mono">v2.16</th><td>组网助手 <code>net.mesh</code>：headscale / Tailscale 入网引导、配置串导入、自带 QR 编码器</td></tr>
+          <tr><th scope="row" class="mono">v2.15</th><td>更新锁定 <code>purg.wulock</code>、图形化 hosts 编辑器、DNS 优化、三语扩展、远程终端分组</td></tr>
+          <tr><th scope="row" class="mono">v2.14</th><td>净化中心 II：规则构建器、YARA 扫描、主页锁定、内核模块与隐藏进程检测</td></tr>
+          <tr><th scope="row" class="mono">v2.13</th><td>净化中心 M1：流氓软件全盘扫描 + 在线特征更新</td></tr>
+          <tr><th scope="row" class="mono">v2.11–12</th><td>密码工具分组、输入持久化、静默提权、结构化入域、三语界面</td></tr>
+          <tr><th scope="row" class="mono">v2.6–10</th><td>主题系统、可缩放 owner-draw UI、手风琴导航、账户 / 域 / 共享部署模块</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────── §07 接入 ─────────────────────────── -->
+<section class="sec" id="get">
+  <div class="wrap">
+    <header class="sec__head">
+      <p class="kicker mono reveal">§07 / 接入 · ACCESS</p>
+      <h2 class="sec__title reveal">下载、运行、走人</h2>
+      <p class="sec__lead reveal">Windows 10 / 11 x64。解压，双击。不写启动项，不装服务，不留后台进程——你需要它的时候它在，不需要的时候它就是一个文件。</p>
+    </header>
+
+    <div class="get">
+      <div class="get__main">
+        <div class="dl reveal">
+          <a class="dl__btn" href="https://github.com/third8923/netadmin-toolbox/releases/download/v2.16/netadmin-toolbox-v2.16-win64.zip">
+            <span class="dl__l">下载 v2.16</span>
+            <span class="dl__m mono">netadmin-toolbox-v2.16-win64.zip · 1.41 MB</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1v10M3.5 7L8 11.5 12.5 7M2 14h12"/></svg>
+          </a>
+          <ul class="dl__meta mono">
+            <li>解压后单文件 ≈3.5 MB</li>
+            <li>无需安装 / 无需 .NET</li>
+            <li>未签名版本可能触发启发式告警</li>
+          </ul>
+        </div>
+
+        <div class="cli reveal">
+          <div class="codehdr">
+            <span class="mono">终端 CLI</span>
+            <span class="mono codehdr__r">等宽即“机器在读”</span>
+          </div>
+          <pre class="cli__pre mono"><code><span class="cli__p">$</span> netadmin-toolbox.exe                    <span class="cli__c">:: 启动 GUI</span>
+<span class="cli__p">$</span> netadmin-toolbox.exe --list             <span class="cli__c">:: 列出全部模块</span>
+<span class="cli__p">$</span> netadmin-toolbox.exe run sys.info       <span class="cli__c">:: 按 ID 运行</span>
+<span class="cli__p">$</span> netadmin-toolbox.exe run net.diag --target 8.8.8.8
+<span class="cli__p">$</span> netadmin-toolbox.exe run purg.wulock --action 0
+<span class="cli__p">$</span> netadmin-toolbox.exe run net.mesh --action 3   <span class="cli__c">:: 终端半块字符二维码</span></code></pre>
+          <div class="cli__foot">
+            <button class="copy" type="button" data-copy="netadmin-toolbox.exe --list">复制 <span class="mono">--list</span></button>
+            <span class="mono">退出码 0 / 1</span>
+          </div>
+        </div>
+
+        <div class="build reveal">
+          <h3 class="sub">从源码构建</h3>
+          <pre class="build__pre mono"><code>build.bat          <span class="cli__c">:: 增量构建</span>
+build.bat clean    <span class="cli__c">:: 全量重编</span></code></pre>
+          <p>需要 MinGW-w64 g++ ≥ 12（实测 16.2.0），其余只要 Windows SDK。把 <code>build.bat</code> 里的 <code>MINGW</code> 指到你的工具链即可。</p>
+        </div>
+      </div>
+
+      <!-- 工牌 · 墨底那枚是“已接入” -->
+      <aside class="badge reveal" aria-label="项目工牌">
+        <div class="badge__top">
+          <span class="badge__bf" aria-hidden="true">b<i></i>f</span>
+          <span class="badge__state mono">ACCESS<br>GRANTED</span>
+        </div>
+        <div class="badge__mid">
+          <p class="mono badge__k">MEMBER</p>
+          <p class="badge__v">NO.001</p>
+          <p class="mono badge__k">PROJECT</p>
+          <p class="badge__v">NetAdmin Toolbox</p>
+          <p class="mono badge__k">ISSUED</p>
+          <p class="badge__v mono">2026-10-27</p>
+        </div>
+        <div class="badge__bar mono">
+          <span>biohacker.fun</span><span>VOL.01</span>
+        </div>
+        <svg class="badge__code" viewBox="0 0 180 40" aria-hidden="true">
+          <g><rect x="0" y="0" width="3" height="40"/><rect x="6" y="0" width="1.5" height="40"/><rect x="10" y="0" width="4" height="40"/><rect x="17" y="0" width="1.5" height="40"/><rect x="21" y="0" width="2.5" height="40"/><rect x="27" y="0" width="5" height="40"/><rect x="35" y="0" width="1.5" height="40"/><rect x="39" y="0" width="3" height="40"/><rect x="45" y="0" width="1.5" height="40"/><rect x="49" y="0" width="4" height="40"/><rect x="56" y="0" width="2.5" height="40"/><rect x="62" y="0" width="1.5" height="40"/><rect x="66" y="0" width="5" height="40"/><rect x="74" y="0" width="2.5" height="40"/><rect x="80" y="0" width="1.5" height="40"/><rect x="84" y="0" width="3" height="40"/><rect x="90" y="0" width="5" height="40"/><rect x="98" y="0" width="1.5" height="40"/><rect x="102" y="0" width="4" height="40"/><rect x="109" y="0" width="2.5" height="40"/><rect x="115" y="0" width="1.5" height="40"/><rect x="119" y="0" width="3" height="40"/><rect x="125" y="0" width="5" height="40"/><rect x="133" y="0" width="1.5" height="40"/><rect x="137" y="0" width="4" height="40"/><rect x="144" y="0" width="2.5" height="40"/><rect x="150" y="0" width="1.5" height="40"/><rect x="154" y="0" width="5" height="40"/><rect x="162" y="0" width="2.5" height="40"/><rect x="168" y="0" width="1.5" height="40"/><rect x="172" y="0" width="4" height="40"/></g>
+        </svg>
+        <div class="bits" aria-hidden="true">
+          <span class="bits__s"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="bits__l mono">bit 29–36 / recompiled</span>
+        </div>
+        <p class="badge__note mono">MIT · 可商用 / 可修改 / 可再分发</p>
+      </aside>
+    </div>
+
+    <div class="pay reveal">
+      <div class="pay__copy">
+        <p class="pay__k mono">支持 · SUPPORT</p>
+        <h3 class="pay__h">如果它替你省下了半天，扫这个码。</h3>
+        <p class="pay__p">微信收款码，金额随意。没有订阅、没有会员版、没有一个功能因为没付钱而变灰——不扫也照用。</p>
+        <p class="pay__n mono">全站唯一一处位图 · 其余均为内联 SVG</p>
+      </div>
+      <figure class="pay__qr">
+        <img src="assets/pay-wechat.png" width="640" height="640" loading="lazy" decoding="async" alt="微信收款码，扫码后金额随意">
+        <figcaption class="mono">微信扫一扫</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div class="foot__brand">
+      <svg class="bf bf--color foot__bf" viewBox="0 0 192 103.2" aria-label="biohacker.fun"><use href="#bf"/></svg>
+      <p class="foot__wordmark">biohacker<i class="pad"></i>fun</p>
+      <p class="foot__tri mono">生物黑客 / 量化自我 / 开源智造</p>
+      <p class="foot__desc">破茧不是终点，是又一次编译的开始。<br>这是 biohacker.fun 的第一个项目。</p>
+    </div>
+
+    <div class="foot__col">
+      <h4 class="mono">本页</h4>
+      <ul>
+        <li><a href="#why">立论</a></li>
+        <li><a href="#gear">三件重器</a></li>
+        <li><a href="#atlas">模块图谱</a></li>
+        <li><a href="#extend">扩展</a></li>
+        <li><a href="#verify">验证</a></li>
+        <li><a href="#log">蜕变日志</a></li>
+        <li><a href="#get">接入</a></li>
+      </ul>
+    </div>
+
+    <div class="foot__col">
+      <h4 class="mono">项目</h4>
+      <ul>
+        <li><a href="https://github.com/third8923/netadmin-toolbox" target="_blank" rel="noopener">源码仓库</a></li>
+        <li><a href="https://github.com/third8923/netadmin-toolbox/releases" target="_blank" rel="noopener">版本发布</a></li>
+        <li><a href="https://github.com/third8923/netadmin-toolbox/blob/main/README.md" target="_blank" rel="noopener">README</a></li>
+        <li><a href="https://github.com/third8923/netadmin-toolbox/blob/main/LICENSE" target="_blank" rel="noopener">MIT 许可</a></li>
+        <li><a href="#get">微信收款码</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap foot__bar">
+    <p class="mono">© 2026 biohacker.fun · 项目 001 · MIT</p>
+    <p class="mono">全内联 SVG · 字体自托管 · 仅收款码为位图</p>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
